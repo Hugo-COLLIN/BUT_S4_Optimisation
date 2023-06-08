@@ -5,7 +5,7 @@ public class Fonction1D
         System.out.println(f.calc(-3.8));
 
 //        System.out.println(f.descente_gradient(-3, 0.1, 0.00000000001));
-        System.out.println(gradientDescent(2, 0.1));
+        System.out.println(gradientDescent(new Fonction1D(),2, 0.1));
     }
 
     double calc(double x)
@@ -13,14 +13,12 @@ public class Fonction1D
         return Math.cos(x) * Math.pow(x-1, 2);
     }
 
-    static double gradientDescent(double initialX, double stepCoefficient)
+    static double gradientDescent(Fonction1D f, double initialX, double stepCoefficient)
     {
-        Fonction1D f = new Fonction1D();
-
         double currentX = initialX;
         double currentY = f.calc(initialX);
 
-        double previousX = initialX;
+//        double previousX = initialX;
         double previousY = currentY;
         currentX += stepCoefficient * previousY;
 
@@ -33,7 +31,7 @@ public class Fonction1D
             if (currentY > previousY)
                 stepCoefficient /= -2;
 
-            previousX = currentX;
+//            previousX = currentX;
             currentX += stepCoefficient * previousY;
 
             previousY = currentY;
