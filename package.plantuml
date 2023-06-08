@@ -1,0 +1,60 @@
+@startuml
+
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+class Cercle {
+  + Cercle(double, double, double): 
+  - rayon: double
+  + toString(): String
+   x: double
+   y: double
+   rayon: double
+}
+interface Generateur << interface >> {
+   point: Point2D
+}
+class GenerateurCercle {
+  + GenerateurCercle(double, double, double, double): 
+   point: Point2D
+}
+class Main {
+  + Main(): 
+  + main(String[]): void
+}
+class MonRandom {
+  + MonRandom(): 
+  + initialiserRandom(int): void
+  + nextInt(int): int
+  + rand(): double
+}
+class Point2D {
+  + Point2D(double, double): 
+  ~ x: double
+  ~ y: double
+  + toString(): String
+  + distance(Point2D): double
+   x: double
+   y: double
+}
+class ProblemeRF {
+  + ProblemeRF(int, Generateur): 
+  + addPoint(Point2D): void
+  + evaluation(Cercle): double
+}
+
+Cercle            -[#595959,dashed]->  Point2D          : "«create»"
+Cercle           "1" *-[#595959,plain]-> "centre\n1" Point2D          
+Generateur        -[#595959,dashed]->  Point2D          
+GenerateurCercle  -[#008200,dashed]-^  Generateur       
+GenerateurCercle  -[#595959,dashed]->  MonRandom        
+GenerateurCercle  -[#595959,dashed]->  Point2D          : "«create»"
+Main              -[#595959,dashed]->  Cercle           : "«create»"
+Main              -[#595959,dashed]->  GenerateurCercle : "«create»"
+Main              -[#595959,dashed]->  ProblemeRF       : "«create»"
+Point2D           -[#595959,dashed]->  Point2D          
+ProblemeRF        -[#595959,dashed]->  Cercle           
+ProblemeRF       "1" *-[#595959,plain]-> "generateur\n1" Generateur       
+ProblemeRF       "1" *-[#595959,plain]-> "points\n*" Point2D          
+@enduml
